@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=	, initial-scale=1.0">
+    <title>Wallet</title>
+</head>
+<body>
+    <input type="text" id="address">
+    <button onclick="getValue()">Get thingy!</button>
+    <script type="module">
+        import request from 'axios' ;
+
+        function getValue() {
+            const address = document.getElementById('address').value;
+            request.get(`https://blockchain.info/ticker`)
+                .then(response => {
+                    const rate = response.data.USD.last; // Get the BTC to USD exchange rate
+                    return request.get(`https://blockchain.info/rawaddr/${address}`);
+                })
+                .then(response => {
+                    const data = response.data;
+                    const balance = data.final_balance / 100000000; // Convert satoshis to BTC
+                    const balance_usd = balance * rate; // Convert BTC to USD
+                    console.log(`Balance: ${balance} BTC`);
+                    console.log(`Balance in USD: ${balance_usd.toFixed(2)}`);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    </script>
+</body>
+</html>
