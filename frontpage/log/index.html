@@ -8,6 +8,22 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+    <script>
+        fetch('navbar.html')
+.then(res => res.text())
+.then(text => {
+  let oldelem = document.querySelector("script#replace_with_navbar");
+  let newelem = document.createElement("div");
+  newelem.innerHTML = text;
+  oldelem.parentNode.replaceChild(newelem,oldelem);
+})
+</script>
+
+
+
+</script>
+      
     <div class="backgorund">
         <div class="form-box">
             <div class="button-box">
@@ -28,7 +44,7 @@
                 <input type="checkbox" class="check-box"><Span>Remember Password</Span>
             <button type="submit" class="submit-btn">Log in</button>
 
-            <a href="frontpage\index.html">Return to frontpage.</a>
+            <a href="C:\Users\Martin Kirilov\Documents\GradProj\frontpage\index.html">Return to frontpage.</a>
             </form>
 
             
@@ -38,7 +54,7 @@
                 <input type="text" class="input-field" placeholder="Enter Password" required>
                 <input type="checkbox" class="check-box" required><span>I agree to terms and services!</span> 
             <button type="submit" class="submit-btn">Register</button>
-            <a href="frontpage\index.html">Return to frontpage.</a>
+            <a href=".\index.html">Return to frontpage.</a>
         </div>
 
     </div>

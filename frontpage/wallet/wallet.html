@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallet</title>
+</head>
+<body>
+    <input type="text" id="address">
+    <button onclick="getValue()">Get Balance!</button>
+    <p id="balance"></p>
+    <script type="text/javascript">
+        function getValue() {
+          const address = document.getElementById('address').value;
+          const balanceElement = document.getElementById('balance');
+
+          fetch('https://blockchain.info/ticker')
+            .then(response => response.json())
+            .then(tickerData => {
+              const rate = tickerData.USD.last;
+
+              fetch(`https://blockchain.info/rawaddr/${address}`)
+                .then(response => response.json())
+                .then(walletData => {
+                  const balance = walletData.final_balance / 100000000;
+                  const balance_usd = balance * rate;
+                  balanceElement.textContent = `Balance: ${balance} BTC | Balance in USD: ${balance_usd.toFixed(2)}`;
+                })
+                .catch(error => console.error(error));
+            })
+            .catch(error => console.error(error));
+        }
+    </script>
+</body>
+</html>
